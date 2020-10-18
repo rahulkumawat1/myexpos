@@ -1,0 +1,5 @@
+MOV R0,"Hello Bro"
+MOV R17,R0
+PORT P1,R17
+OUT
+HALT

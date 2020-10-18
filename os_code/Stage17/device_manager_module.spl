@@ -1,0 +1,59 @@
+alias funcNo R1;
+alias currPid R2;
+
+if(funcNo==3) then      //Terminal Write
+    
+    //......calling Acquire Terminal
+    
+    backup;
+
+    R1 = 8;
+    R2 = [SYSTEM_STATUS_TABLE+1];
+
+    call RESOURCE_MANAGER;
+    restore;
+
+    print R3;
+
+    //........calling Release Terminal
+    backup;
+    R1 = 9;
+    R2 = [SYSTEM_STATUS_TABLE+1];
+    call RESOURCE_MANAGER;
+    restore;
+
+endif;
+
+if(funcNo==4) then      //Terminal Read
+
+    //........calling Acquire Terminal
+
+    backup;
+    funcNo = 8;
+    // R2 already has currPid
+
+    call RESOURCE_MANAGER;
+
+    restore;
+    read;       //Requesting to read frm Terminal
+
+    [PROCESS_TABLE + 16*[SYSTEM_STATUS_TABLE+1] + 4] = WAIT_TERMINAL;
+
+    //....invoking Scheduler.........
+
+    backup;
+
+    call SCHEDULER;
+
+    restore;
+
+    alias value R5;
+
+    value = [PTBR + 2*(R3/512)]*512 + (R3%512);
+
+    [value] = [PROCESS_TABLE + 16*[SYSTEM_STATUS_TABLE+1] + 8];      //Input Buffer
+
+    //..Release Terminal for Read in done in console intrupt
+endif;
+
+return;

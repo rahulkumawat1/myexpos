@@ -1,0 +1,24 @@
+alias i R0;
+alias v R1;
+alias p R2;
+alias np R3;
+p="Prime";
+np = "NonPrime";
+i=2;
+v=48;
+
+while(i<v) do
+
+if(v%i==0) then
+break;
+endif;
+i = i+1;
+endwhile;
+
+if(i==v)then
+print p;
+else
+print np;
+endif;
+
+

@@ -1,0 +1,26 @@
+alias funcNo R1;
+alias currPid R2;
+if(R1!=3) then
+ return;
+endif;
+
+//calling Acquire Terminal
+multipush(R1,R2,R3);
+funcNo = 8;
+call RESOURCE_MANAGER;
+multipop(R1,R2,R3);
+
+alias add R3;
+alias ptbr R4;
+alias word R5;
+ptbr = [PROCESS_TABLE+16*currPid+14];
+word = [[ptbr+2*(add/512)]*512+(add%512)];
+print word;
+
+//calling Release Terminal
+multipush(R1,R2,R3);
+funcNo = 9;
+call RESOURCE_MANAGER;
+multipop(R1,R2,R3);
+
+return;
