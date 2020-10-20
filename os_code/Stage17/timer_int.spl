@@ -15,7 +15,6 @@ while(i<16) do
  i = i+1; 
 endwhile;
 
-breakpoint;
 call SCHEDULER;
 
 restore;

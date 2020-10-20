@@ -2,6 +2,7 @@
 SP = [PROCESS_TABLE+16*[SYSTEM_STATUS_TABLE+1]+11]*512-1;	//SP point to kernal stack
 backup;
 
+R14 = "console_s";
 breakpoint;
 
 alias reqPID R0;
@@ -13,16 +14,13 @@ breakpoint;
 
 //.......Release Terminal.......
 
-backup;
-
 R1 = 9;     //funcNo
 R2 = reqPID;    //PID
 
-
+multipush(R0,R1,R2);
 call RESOURCE_MANAGER;
+multipop(R0,R1,R2);
 
-
-restore;
 restore;
 SP = [PROCESS_TABLE+16*[SYSTEM_STATUS_TABLE+1]+13];	//User_SP
 ireturn;

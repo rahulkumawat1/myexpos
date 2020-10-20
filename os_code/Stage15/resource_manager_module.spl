@@ -4,10 +4,12 @@ alias currPid R2;
 //.....Acquire Terminal.....
 if(funcNo==8) then
 while([TERMINAL_STATUS_TABLE]==1) do
+
  [PROCESS_TABLE+16*currPid+4] = WAIT_TERMINAL;
  multipush(R1,R2,R3);
  call SCHEDULER;
  multipop(R1,R2,R3);
+ 
 endwhile;
 
 [TERMINAL_STATUS_TABLE] = 1;	//Status

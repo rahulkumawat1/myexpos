@@ -6,12 +6,8 @@ userSP = SP;
 SP = [PROCESS_TABLE+16*[SYSTEM_STATUS_TABLE+1]+11]*512-1;	//SP points to kernal stack
 
 // checking for file descripter
-alias phyPageNum R1;
-alias fileDiscPhyAdd R2;
-phyPageNum = [PTBR+2*((userSP-4)/512)];
-fileDiscPhyAdd = (phyPageNum*512)+((userSP-4)%512);
-alias fileDisc R3;
-fileDisc = [fileDiscPhyAdd];
+alias fileDisc R1;
+fileDisc = [[PTBR+2*((userSP-4)/512)]*512+(userSP-4)%512];
 
 if(fileDisc!=-2)
 then
@@ -25,13 +21,10 @@ else
         word  = userSP-3;
 	multipush(R0,R1,R2,R3,R5);
 
-        // calling module
-	alias funcNo R1;
-	alias currPid R2;
-	alias value R3;
-	funcNo = 3;
-	currPid = [SYSTEM_STATUS_TABLE+1];
-	value = word;
+    // calling module
+	R1 = 3;							//funcNo
+	R2 = [SYSTEM_STATUS_TABLE+1];	//currPid
+	R3 = word;
 
 	call DEVICE_MANAGER;	
 	

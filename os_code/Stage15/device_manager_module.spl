@@ -6,7 +6,8 @@ endif;
 
 //calling Acquire Terminal
 multipush(R1,R2,R3);
-funcNo = 8;
+R1 = 8;
+R2 = currPid;
 call RESOURCE_MANAGER;
 multipop(R1,R2,R3);
 
@@ -19,7 +20,8 @@ print word;
 
 //calling Release Terminal
 multipush(R1,R2,R3);
-funcNo = 9;
+R1 = 9;
+R2 = currPid;
 call RESOURCE_MANAGER;
 multipop(R1,R2,R3);
 
