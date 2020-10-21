@@ -2,15 +2,10 @@
 SP = [PROCESS_TABLE+16*[SYSTEM_STATUS_TABLE+1]+11]*512-1;	//SP point to kernal stack
 backup;
 
-R14 = "console_s";
-breakpoint;
-
 alias reqPID R0;
 reqPID = [TERMINAL_STATUS_TABLE + 1];
 
 [PROCESS_TABLE + 16*reqPID + 8] = P0;   //P0 port value is assigned to Input buffer
-
-breakpoint;
 
 //.......Release Terminal.......
 

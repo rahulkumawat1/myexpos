@@ -1,14 +1,17 @@
 loadi(65,7); //init
 loadi(66,8);
 
-loadi(22, 35); //int10
-loadi(23, 36);
-
 loadi(2,15); //excep handler
 loadi(3,16);
 
 loadi(63,13); //library
 loadi(64,14);
+
+loadi(22, 35); //exit_int
+loadi(23, 36);
+
+loadi(20,33);   //exec_int
+loadi(21,34);
 
 loadi(4,17); //timer int
 loadi(5,18);
@@ -25,11 +28,20 @@ loadi(9,22);
 loadi(50,63); //Shedular_module
 loadi(51,64);
 
-loadi(40,53); //resource_manager
+loadi(40,53); //resource_manager_mod
 loadi(41,54);
 
-loadi(48,61); //device_manager
+loadi(48,61); //device_manager_mod
 loadi(49,62);
+
+loadi(42,55);  //process_man_mod
+loadi(43,56);
+
+loadi(44,57);  //memory_man_mod
+loadi(45,58);
+
+loadi(59,3);   //inode_user_table
+loadi(60,4);
 
 //.....Page Table Entry for INIT process pid=1.....//
 
@@ -79,8 +91,26 @@ PTLR=10;
 [PROCESS_TABLE+16+14] = PAGE_TABLE_BASE+20;   //PTBR
 [PROCESS_TABLE+16+15] = 10;        //PTLR
 
+//.....memory free list.....
 
-alias i R0;
+alias j R0;
+j = 0;
+while(j<=82) do
+    [MEMORY_FREE_LIST+j]=1;
+    j = j+1;
+endwhile;
+
+while(j<=127) do
+    [MEMORY_FREE_LIST+j]=0;
+    j = j+1;
+endwhile;
+
+[SYSTEM_STATUS_TABLE+3] = 0;    //WAIT_MEM_COUNT
+[SYSTEM_STATUS_TABLE+2] = 45;   //MEM_FREE_COUNT
+
+// state of remaning process set to TERMINATED
+
+alias i R1;
 i = 2;
 while(i<16) do
 [PROCESS_TABLE+16*i+4] = TERMINATED;
