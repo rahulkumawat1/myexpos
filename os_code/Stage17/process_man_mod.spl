@@ -28,8 +28,9 @@ if(funcNo==FREE_USER_AREA_PAGE) then
     R1 = RELEASE_PAGE;
     R2 = [PROCESS_TABLE + 16*currPid + 11];         //page_number
     call MEMORY_MANAGER;
+    
     multipop(R1,R2,R3);
-
+    
     return;
 endif;
 
@@ -48,4 +49,6 @@ if(funcNo==EXIT_PROCESS) then
     multipop(R1,R2);
 
     [PROCESS_TABLE+16*currPid+4] = TERMINATED;
+
+    return;
 endif;

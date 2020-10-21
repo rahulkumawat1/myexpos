@@ -2,7 +2,8 @@ load --os $HOME/myexpos/os_code/Stage17/os_start.xsm
 load --library $HOME/myexpos/expl/library.lib
 load --exhandler $HOME/myexpos/os_code/Stage17/halt_prog.xsm
 load --idle $HOME/myexpos/os_code/Stage17/idle.xsm
-load --init $HOME/myexpos/os_code/Stage17/gcd.xsm
+load --init $HOME/myexpos/os_code/Stage17/assg1.xsm
+load --exec $HOME/myexpos/os_code/Stage17/odd.xsm
 load --module 0 $HOME/myexpos/os_code/Stage17/resource_manager_module.xsm
 load --module 1 $HOME/myexpos/os_code/Stage17/process_man_mod.xsm
 load --module 2 $HOME/myexpos/os_code/Stage17/memory_man_mod.xsm
