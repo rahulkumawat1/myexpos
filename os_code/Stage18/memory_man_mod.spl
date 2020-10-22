@@ -17,8 +17,6 @@ if(funcNo==RELEASE_PAGE) then
         i = i+1;
     endwhile;
 
-    breakpoint;
-
     return;
 endif;
 
@@ -46,7 +44,6 @@ if(R1==GET_FREE_PAGE)then
             [MEMORY_FREE_LIST+i] = 1;
             R2 = i;
 
-            breakpoint;
             return;
         endif;
         i = i+1;

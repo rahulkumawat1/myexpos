@@ -94,12 +94,21 @@ PTLR=10;
 [PROCESS_TABLE+16+14] = PAGE_TABLE_BASE+20;   //PTBR
 [PROCESS_TABLE+16+15] = 10;        //PTLR
 
-//.....Per_process_resource_table for init......
-
+//.......per_process_resource_table entry.......//
+alias resource_table R0;
+resource_table = 80*512 + RESOURCE_TABLE_OFFSET;
+[resource_table + 2*0] = -1; 
+[resource_table + 2*1] = -1; 
+[resource_table + 2*2] = -1; 
+[resource_table + 2*3] = -1; 
+[resource_table + 2*4] = -1; 
+[resource_table + 2*5] = -1; 
+[resource_table + 2*6] = -1; 
+[resource_table + 2*7] = -1; 
 
 //.....memory free list.....
 
-alias j R0;
+alias j R1;
 j = 0;
 while(j<=82) do
     [MEMORY_FREE_LIST+j]=1;
@@ -116,7 +125,7 @@ endwhile;
 
 // state of remaning process set to TERMINATED
 
-alias i R1;
+alias i R2;
 i = 2;
 while(i<16) do
 [PROCESS_TABLE+16*i+4] = TERMINATED;
