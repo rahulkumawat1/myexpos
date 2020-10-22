@@ -78,7 +78,7 @@ alias freepage R5;
 multipush(R0,R1,R2,R3);
 R1 = GET_FREE_PAGE;
 call MEMORY_MANAGER;
-freepage = R2;
+freepage = R0;
 multipop(R0,R1,R2,R3);
 
 [PTBR+16] = freepage;		
@@ -89,7 +89,7 @@ multipop(R0,R1,R2,R3);
 multipush(R0,R1,R2,R3);
 R1 = GET_FREE_PAGE;
 call MEMORY_MANAGER;
-freepage = R2;
+freepage = R0;
 multipop(R0,R1,R2,R3);
 
 [PTBR+18] = freepage;
@@ -102,7 +102,7 @@ multipop(R0,R1,R2,R3);
 multipush(R0,R1,R2,R3);
 R1 = GET_FREE_PAGE;
 call MEMORY_MANAGER;
-freepage = R2;
+freepage = R0;
 multipop(R0,R1,R2,R3);
 
 [PTBR+4]= freepage;		
@@ -113,7 +113,7 @@ multipop(R0,R1,R2,R3);
 multipush(R0,R1,R2,R3);
 R1 = GET_FREE_PAGE;
 call MEMORY_MANAGER;
-freepage = R2;
+freepage = R0;
 multipop(R0,R1,R2,R3);
 
 [PTBR+6]= freepage;
@@ -127,7 +127,7 @@ if([INODE_TABLE+16*i+8]!=-1)then
     multipush(R0,R1,R2,R3);
     R1 = GET_FREE_PAGE;
     call MEMORY_MANAGER;
-    freepage = R2;
+    freepage = R0;
     multipop(R0,R1,R2,R3);
 
     [PTBR+8] = freepage;		
@@ -140,7 +140,7 @@ if([INODE_TABLE+16*i+9]!=-1)then
     multipush(R0,R1,R2,R3);
     R1 = GET_FREE_PAGE;
     call MEMORY_MANAGER;
-    freepage = R2;
+    freepage = R0;
     multipop(R0,R1,R2,R3);
 
     [PTBR+10] = freepage;		
@@ -153,7 +153,7 @@ if([INODE_TABLE+16*i+10]!=-1)then
     multipush(R0,R1,R2,R3);
     R1 = GET_FREE_PAGE;
     call MEMORY_MANAGER;
-    freepage = R2;
+    freepage = R0;
     multipop(R0,R1,R2,R3);
 
     [PTBR+12] = freepage;		
@@ -166,7 +166,7 @@ if([INODE_TABLE+16*i+11]!=-1)then
     multipush(R0,R1,R2,R3);
     R1 = GET_FREE_PAGE;
     call MEMORY_MANAGER;
-    freepage = R2;
+    freepage = R0;
     multipop(R0,R1,R2,R3);
 
     [PTBR+14] = freepage;		

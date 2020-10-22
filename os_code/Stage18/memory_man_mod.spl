@@ -21,7 +21,7 @@ if(funcNo==RELEASE_PAGE) then
 endif;
 
 if(R1==GET_FREE_PAGE)then
-    //return in R2
+    //return in R0
 
     [SYSTEM_STATUS_TABLE+3] = [SYSTEM_STATUS_TABLE+3]+1;    //WAIT_MEM_COUNT
     while([SYSTEM_STATUS_TABLE+2]==0) do
@@ -42,7 +42,7 @@ if(R1==GET_FREE_PAGE)then
     while(i<MAX_MEM_PAGE) do
         if([MEMORY_FREE_LIST+i]==0) then
             [MEMORY_FREE_LIST+i] = 1;
-            R2 = i;
+            R0 = i;
 
             return;
         endif;
