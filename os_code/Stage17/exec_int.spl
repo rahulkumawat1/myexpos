@@ -44,15 +44,14 @@ multipop(R0,R1,R2,R3);
 alias user_area_page R4;
 user_area_page = [PROCESS_TABLE+16*exitPid+11];
 
-[MEMORY_FREE_LIST+user_area_page] = [MEMORY_FREE_LIST+user_area_page]+1;
-[SYSTEM_STATUS_TABLE+2] = [SYSTEM_STATUS_TABLE+2]-1;
+[MEMORY_FREE_LIST+user_area_page] = [MEMORY_FREE_LIST+user_area_page] + 1;
+[SYSTEM_STATUS_TABLE+2] = [SYSTEM_STATUS_TABLE+2]-1;    //MEM_FREE_COUNT
 
 SP = user_area_page*512-1;
 
 //New process uses PID of terminated process
 
 [PROCESS_TABLE+16*exitPid+4] = RUNNING;
-//SEE
 [PROCESS_TABLE+16*exitPid+7] = i;   //inode_index
 
 //-------------------------setting page table--------------------//

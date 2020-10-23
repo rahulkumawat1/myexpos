@@ -2,7 +2,11 @@
 SP = [PROCESS_TABLE+16*[SYSTEM_STATUS_TABLE+1]+11]*512-1;	//SP point to kernal stack
 backup;
 
+breakpoint;
+
 [DISK_STATUS_TABLE] = 0;    //Status
+
+breakpoint;
 
 alias i R0;
 i=0;
