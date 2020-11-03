@@ -1,0 +1,15 @@
+./spl $HOME/myexpos/os_code/Stage19/boot_module.spl
+./spl $HOME/myexpos/os_code/Stage19/console_int.spl
+./spl $HOME/myexpos/os_code/Stage19/device_manager_module.spl
+./spl $HOME/myexpos/os_code/Stage19/disk_int.spl
+./spl $HOME/myexpos/os_code/Stage19/excep_handler.spl
+./spl $HOME/myexpos/os_code/Stage19/exec_int.spl
+./spl $HOME/myexpos/os_code/Stage19/exit_int.spl
+./spl $HOME/myexpos/os_code/Stage19/memory_man_mod.spl
+./spl $HOME/myexpos/os_code/Stage19/os_start.spl
+./spl $HOME/myexpos/os_code/Stage19/process_man_mod.spl
+./spl $HOME/myexpos/os_code/Stage19/read_int.spl
+./spl $HOME/myexpos/os_code/Stage19/resource_manager_module.spl
+./spl $HOME/myexpos/os_code/Stage19/schedular_module.spl
+./spl $HOME/myexpos/os_code/Stage19/timer_int.spl
+./spl $HOME/myexpos/os_code/Stage19/write_int.spl
