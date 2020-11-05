@@ -36,11 +36,14 @@ PTBR = [PROCESS_TABLE+16*newPid+14];
 PTLR = [PROCESS_TABLE+16*newPid+15];
 [SYSTEM_STATUS_TABLE+1] = newPid;
 
-if([PROCESS_TABLE+16*newPid+4]==CREATED) then
- SP = [PROCESS_TABLE+16*newPid+13];	//UPTR
- [PROCESS_TABLE+16*newPid+4] = RUNNING; //State
- [PROCESS_TABLE+16*newPid+9]=0; 	//MODE_Field
- ireturn;
+if([PROCESS_TABLE + 16*newPid + 4] == CREATED) then
+
+    SP = [PROCESS_TABLE + 16*newPid + 13];	//UPTR
+    BP = [[PROCESS_TABLE + 16*newPid + 11]*512];
+    [PROCESS_TABLE + 16*newPid + 4] = RUNNING; //State
+    [PROCESS_TABLE + 16*newPid + 9] = 0; 	//MODE_Field
+    ireturn;
+
 endif;
 
 [PROCESS_TABLE+16*newPid+4] = RUNNING;

@@ -1,6 +1,31 @@
 alias funcNo R1;
 alias currPid R2;
 
+if(funcNo == GET_PCB_ENTRY) then
+
+    alias i R3;
+    i = 0;
+    while(i < 16) do
+        if([PROCESS_TABLE + 16*i + 4] == TERMINATED) then
+            [PROCESS_TABLE + 16*i + 1] = i;     //PID
+            [PROCESS_TABLE + 16*i + 4] = ALLOCATED;     //STATE
+            [PROCESS_TABLE + 16*i + 14] = PAGE_TABLE_BASE + 20*i;     //PTBR
+            [PROCESS_TABLE + 16*i + 15] = 10;     //PTLR
+            break;
+        endif;
+        i = i + 1;
+    endwhile;
+
+    if(i == 16) then
+        R0 = -1;
+    else 
+        R0 = i;
+    endif;
+
+    return;
+
+endif;
+
 if(funcNo==FREE_PAGE_TABLE) then
 
     alias i R3;

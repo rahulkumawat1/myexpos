@@ -22,7 +22,6 @@ if(R1 == GET_CODE_PAGE) then
 			if([DISK_MAP_TABLE + 10*i + block] == block_num && [PAGE_TABLE_BASE + 20*i + 2*(block)] != -1) then
 				page_num = [PAGE_TABLE_BASE + 20*i + 2*block];
 				[MEMORY_FREE_LIST + page_num] = [MEMORY_FREE_LIST + page_num] + 1;
-				breakpoint;
                 return;
 			endif;
 			block = block + 1;
@@ -40,7 +39,6 @@ if(R1 == GET_CODE_PAGE) then
 	R3 = R0;	// page_num got from GET_FREE_PAGE
 	call MOD_4;                 //DEVICE_MANGER
 
-    breakpoint;
 	return;
 
 endif;

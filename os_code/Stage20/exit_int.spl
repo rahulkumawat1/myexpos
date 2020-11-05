@@ -1,17 +1,11 @@
-[PROCESS_TABLE+16*[SYSTEM_STATUS_TABLE+1]+4] = TERMINATED;
+[PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1]*16 + 9] = 10;
+[PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1]*16 + 13] = SP;
 
-alias i R0;
-i=1;	//dnt check for idle
-while(i<16) do
- if([PROCESS_TABLE+16*i+4]!=TERMINATED) then
-  break;
- endif;
-i = i+1;
-endwhile;
+SP = [PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1]*16 + 11]*512 - 1;
 
-if(i==16) then
-	halt;
-endif;
+R1 = EXIT_PROCESS;
+R2 = [SYSTEM_STATUS_TABLE + 1];
+call PROCESS_MANAGER;
 
 call SCHEDULER;
 

@@ -22,6 +22,9 @@ loadi(17,30);
 loadi(14,27);   //read int
 loadi(15,28);
 
+loadi(18,31);   //fork int
+loadi(19,32);
+
 loadi(8,21);    //console int
 loadi(9,22);
 
