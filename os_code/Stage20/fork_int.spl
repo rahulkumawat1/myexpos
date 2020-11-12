@@ -34,7 +34,7 @@ endif;
 alias childPTBR R12;
 childPTBR = PAGE_TABLE_BASE + childPID*20;
 
-//STACK PAGE 1
+//----------------STACK PAGE 1-----------
 
 backup;
 R1 = GET_FREE_PAGE;
@@ -44,7 +44,7 @@ call MOD_2;		//MEMORY MANAGER MODULE
 restore;
 
 
-//STACK PAGE 2
+//-------------------STACK PAGE 2
 
 backup;
 R1 = GET_FREE_PAGE;
@@ -148,7 +148,11 @@ endwhile;
 i = 0;
 while(i < 16)	do
 	[childPTBR + i] = [PTBR + i];
-	[MEMORY_FREE_LIST + [childPTBR + i]] = [MEMORY_FREE_LIST + [childPTBR + i]] + 1; 		//share count
+	[childPTBR + i + 1] = [PTBR + i + 1];
+
+	if([childPTBR + i] != -1) then
+		[MEMORY_FREE_LIST + [childPTBR + i]] = [MEMORY_FREE_LIST + [childPTBR + i]] + 1; 		//share count
+	endif;
 
 	i = i + 2;
 endwhile;
@@ -167,9 +171,9 @@ endwhile;
 //Storing BP on top of Kernal Stack
 [[PROCESS_TABLE + 16*childPID + 11]*512] = BP;
 
-[([PTBR + 2*((userSP-1)/512)]*512) + ((userSP-1)%512)]= childPID;
+[([PTBR + 2*((userSP-1)/512)]*512) + ((userSP-1)%512)] = childPID;
 
-[([childPTBR + 2*((userSP-1)/512)]*512) + ((userSP-1)%512)]=0;
+[([childPTBR + 2*((userSP-1)/512)]*512) + ((userSP-1)%512)] = 0;
 
 [PROCESS_TABLE + 16*[SYSTEM_STATUS_TABLE+1]+9] = 0;
 
