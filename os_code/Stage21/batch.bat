@@ -2,8 +2,9 @@ load --os $HOME/myexpos/os_code/Stage21/os_start.xsm
 load --library $HOME/myexpos/expl/library.lib
 load --exhandler $HOME/myexpos/os_code/Stage21/excep_handler.xsm
 load --idle $HOME/myexpos/os_code/Stage21/idle.xsm
-load --init $HOME/myexpos/os_code/Stage21/assg2.xsm
+load --init $HOME/myexpos/os_code/Stage21/shell.xsm
 load --exec $HOME/myexpos/os_code/Stage21/odd.xsm
+load --exec $HOME/myexpos/os_code/Stage21/assg2.xsm
 load --exec $HOME/myexpos/os_code/Stage21/even.xsm
 load --exec $HOME/myexpos/os_code/Stage21/pid.xsm
 load --module 0 $HOME/myexpos/os_code/Stage21/resource_manager_module.xsm
