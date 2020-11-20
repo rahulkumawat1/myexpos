@@ -135,7 +135,7 @@ multipop(R0,R1,R2,R3);
 
 //..............code pages..............//
 
-if([INODE_TABLE+16*i+8]!=-1)then
+if([INODE_TABLE + 16*i + 8] != -1)then
 
     multipush(R0,R1,R2,R3);
     R1 = GET_CODE_PAGE;
@@ -144,8 +144,8 @@ if([INODE_TABLE+16*i+8]!=-1)then
     freepage = R0;
     multipop(R0,R1,R2,R3);
 
-    [PTBR+8] = freepage;		
-    [PTBR+9]="0100";
+    [PTBR + 8] = freepage;		
+    [PTBR + 9]="0100";
 
 endif;
 
