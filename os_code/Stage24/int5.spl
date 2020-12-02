@@ -1,0 +1,128 @@
+alias process_table R1;
+alias userSP R2;
+
+process_table = PROCESS_TABLE + [SYSTEM_STATUS_TABLE+1]*16;
+[process_table + 13] = SP;              //UPTR
+userSP = SP;
+
+SP = [process_table + 11]*512 - 1;                  //change to KERNEL stack
+
+alias syscall R3;
+syscall = [[PTBR + 2 * ((userSP - 5) / 512)] * 512 + (userSP - 5) % 512];
+
+alias ret_adr R4;
+ret_adr = [PTBR + 2 * ((userSP - 1) / 512)] * 512 + (userSP - 1) % 512;
+
+
+//-----------------------------------OPEN SYSCALL-----------------------------------
+
+// returns file descriptor
+// returns -1 if FILE NOT FOUND OR FILE IS NOT DATA OR ROOT FILE
+// returns -2 if SYSTEM HAS REACHED ITS LIMIT OF OPEN FILES
+// returns -3 if PROCESS HAS REACHED ITS LIMIT OF RESOURCES
+
+if( syscall == INT_OPEN) then
+    [process_table + 9] = INT_OPEN;                 //MODE_FLAG
+
+    alias filename R5;
+    filename = [[PTBR + 2 * ((userSP - 4) / 512)] * 512 + (userSP - 4) % 512];
+
+    alias resource_table R6;
+    resource_table = [process_table + 11]*512 + RESOURCE_TABLE_OFFSET;
+
+    alias i R7;
+    i = 0;
+
+    while(i < 8) do
+        if([resource_table + 2*i] == -1) then
+            break;
+        endif;
+        i = i + 1;
+    endwhile;
+
+    // If no entry is found
+    if(i == 8) then
+        [ret_adr] = -3;             // process has reached its limit of resources
+        SP = userSP;
+        [process_table + 9] = 0;        //MODE_FLAG
+        ireturn;
+    endif;
+
+    alias free_entry R8;
+    free_entry = i;
+
+    //OPEN FUNCTION
+
+    multipush(R1,R2,R3,R4,R5,R6,R7,R8);
+    R1 = OPEN;
+    R2 = filename;
+    call FILE_MANAGER;
+    multipop(R1,R2,R3,R4,R5,R6,R7,R8);
+
+    alias open_file_entry R9;
+    open_file_entry = R0;
+
+    if(open_file_entry == -1) then               //FILE TYPE is not DATA or ROOT
+        [ret_adr] = -1;
+        SP = userSP;
+        [process_table + 9] = 0;
+        ireturn;
+    endif;
+
+    if(open_file_entry == -2) then               //SYSTEM HAS REACHED ITS LIMIT OF OPEN FILES
+        [ret_adr] = -2;
+        SP = userSP;
+        [process_table + 9] = 0;
+        ireturn;
+    endif;
+
+    // FILE is READY to OPEN
+
+    [resource_table + 2*free_entry] = FILE;
+    [resource_table + 2*free_entry + 1] = open_file_entry;
+
+    [ret_adr] = free_entry;
+    SP = userSP;
+    [process_table + 9] = 0;
+    ireturn;
+endif;
+
+//-----------------------------------CLOSE SYSCALL-----------------------------------
+
+// ARGUMENT IS FILE DESCRIPTOR
+// RETURNS 0 IF SUCCESS
+// RETURNS -1 IF FILE DESCRIPTOR IS INVALID
+
+if(syscall == INT_CLOSE) then
+    [process_table + 9] = INT_CLOSE;
+
+    alias file_entry R5;
+    file_entry = [[PTBR + 2*((userSP-4)/512)]*512 + (userSP-4)%512];
+
+    alias resource_table R6;
+    resource_table = [process_table + 11]*512 + RESOURCE_TABLE_OFFSET;
+
+    if(file_entry < 0 || file_entry > 7 || [resource_table + 2*file_entry] != FILE) then
+        [ret_adr] = -1;
+        SP = userSP;
+        [process_table + 9] = 0;
+        ireturn;
+    endif;
+
+    alias file_table_entry R7;
+    file_table_entry = [resource_table + 2*file_entry + 1];
+
+    backup;
+    R1 = CLOSE;
+    R2 = file_table_entry;
+    call FILE_MANAGER;
+    restore;
+
+    [resource_table + 2*file_entry] = -1;
+    [resource_table + 2*file_entry + 1] = -1;
+
+    [ret_adr] = 0;
+    SP = userSP;
+    [process_table + 9] = 0;
+    ireturn;
+endif;
