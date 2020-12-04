@@ -28,7 +28,7 @@ password = [[PTBR + 2*((userSP-3)/512)]*512 + (userSP-3)%512];
 
 encrypt password;
 
-if(currPid != 1) then	                     //login is not called from login process
+if(currPid != 1) then	                     //login is not called from init process
 	[ret_adr] = -2;	
 	SP = userSP;
 	[PROCESS_TABLE + currPid * 16 + 9] = 0;	        //reset the mode flag

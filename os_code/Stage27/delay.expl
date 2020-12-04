@@ -1,0 +1,19 @@
+int main()
+{
+decl
+  int i,delay;
+enddecl
+
+begin
+
+  write("DELAY");
+  read(delay);
+
+  i = 0;
+  while(i<delay) do
+    i = i + 1;
+  endwhile;
+
+  return 0;
+end
+}

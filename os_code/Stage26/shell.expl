@@ -8,41 +8,47 @@ enddecl
 begin
     a=1;
     while(a == 1) do
-        temp = exposcall("Write",-2, "---Enter---");
-        temp = exposcall("Read",-1, input);
+        write("---Enter---");
+        read(input);
 
         flag=0;
         if(input == "Logout" OR input == "Shutdown") then
             flag=1;
         endif;
               
-        if(input == "Remusr" OR input == "Getuid" OR input == "Getuname") then
+        if(input == "Remusr" OR input == "Getuid") then
             flag=1;
             write("USERNAME");
-            temp = exposcall("Read",-1, username);
+            read(username);
+        endif;
+
+        if(input == "Getuname") then
+            flag=1;
+            write("USERID");
+            read(username);
         endif;
               
         if(input == "Newusr" OR input == "Setpwd") then
             flag=1;
             write("USERNAME");
-            temp = exposcall("Read",-1, username);
+            read(username);
             write("PASSWORD");
-            temp = exposcall("Read",-1, password);
+            read(password);
         endif;
               
         if(flag==1) then
             retcom = exposcall(input, username, password);
             if(retcom < 0) then
-                temp = exposcall("Write",-2, "BAD COMMAND");
+                write("BAD COMMAND");
             else
                 if(input == "Getuid" OR input == "Getuname") then
-                    temp = exposcall("Write",-2, retcom);
+                    write(retcom);
                 endif;
             endif;
         else
             pid = exposcall("Fork");
             if(pid < 0) then
-                temp = exposcall("Write",-2, "Fork Fail");
+                write("Fork Fail");
                 continue;
             endif;
             
@@ -51,7 +57,7 @@ begin
             else
                 temp = exposcall("Exec",input);
                 if(temp != 0) then
-                    temp = exposcall("Write",-2, "BAD COMMAND");
+                    write("BAD COMMAND");
                     break;
                 endif;
             endif;

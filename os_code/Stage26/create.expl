@@ -8,10 +8,10 @@ enddecl
 begin
 
   
-  write("filename");
+  write("FILENAME");
   read(filename);
 
-  write("permission");
+  write("PERMISSION");
   read(permission);
 
   temp = exposcall("Create", filename, permission);

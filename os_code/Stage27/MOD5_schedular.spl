@@ -1,0 +1,64 @@
+
+alias currPid R1;
+currPid = [SYSTEM_STATUS_TABLE+1];
+multipush (BP);
+
+[PROCESS_TABLE + 16*currPid + 12] = SP%512;	//KPTR
+[PROCESS_TABLE + 16*currPid + 14] = PTBR;	
+[PROCESS_TABLE + 16*currPid + 15] = PTLR;
+
+//--------------------------------------Round Robin Algo--------------------------------------//
+
+alias newPid R2;
+newPid = 0;
+
+if([SYSTEM_STATUS_TABLE + 5] != 0) then             //PAGING_STATUS
+
+    alias daemon_process_table R3;
+    daemon_process_table = PROCESS_TABLE + 15*16;
+
+    if(([daemon_process_table + 4] == READY) || ([daemon_process_table + 4] == CREATED) || ([daemon_process_table + 4] == RUNNING)) then
+		newPid = 15;                               //daemon
+	else
+		newPid = 0;                                //idle
+	endif;
+
+else
+
+    alias i R4;
+    i = currPid + 1;
+
+    while(i < 15) do
+        alias process_table R5;
+        process_table = PROCESS_TABLE + 16*i;
+
+        if(([process_table + 4] == READY || [process_table + 4] == CREATED) && [process_table + 6] != 1) then
+            newPid = i;
+            break;
+        endif;
+        i = i + 1;
+    endwhile;
+
+endif;
+//----------------------------------REGISTER entry of newpid----------------------------------
+
+SP = [PROCESS_TABLE+16*newPid+11]*512 + [PROCESS_TABLE+16*newPid+12];
+PTBR = [PROCESS_TABLE+16*newPid+14];
+PTLR = [PROCESS_TABLE+16*newPid+15];
+[SYSTEM_STATUS_TABLE+1] = newPid;
+
+if([PROCESS_TABLE + 16*newPid + 4] == CREATED) then
+
+    SP = [PROCESS_TABLE + 16*newPid + 13];	            //UPTR
+    BP = [[PROCESS_TABLE + 16*newPid + 11]*512];
+    [PROCESS_TABLE + 16*newPid + 4] = RUNNING;          //State
+    [PROCESS_TABLE + 16*newPid + 9] = 0; 	            //MODE_Field
+    ireturn;
+
+endif;
+
+[PROCESS_TABLE+16*newPid+4] = RUNNING;
+multipop (BP);
+return;
+
+ 

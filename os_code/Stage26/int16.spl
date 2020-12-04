@@ -69,7 +69,7 @@ if(syscall == INT_NEWUSR) then
     endwhile;
 
     if(i == MAX_USER_NUM) then
-        [ret_adr] = -1;
+        [ret_adr] = -3;
         [process_table + 9] = 0;
         SP = userSP;
         ireturn;

@@ -1,0 +1,27 @@
+int main(){
+decl
+	string file;
+	int a,fd,temp,b; 
+enddecl
+begin
+    write("FILENAME");
+	temp=exposcall("Read",-1,file);
+    
+	fd = exposcall("Open",file);
+	
+	if(fd==-1) then
+		temp = exposcall("Create",file,1);
+		fd = exposcall("Open",file);
+	endif;
+	read(a);
+	while(a != -999) do
+		temp=exposcall("Write",fd,a);
+        if(temp != 0) then
+            write("cant write");
+            break;
+        endif;
+		read(a);
+	endwhile;
+	return 0;
+end
+}

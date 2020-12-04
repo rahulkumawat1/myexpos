@@ -9,6 +9,7 @@ load --exec $HOME/myexpos/os_code/Stage26/even.xsm
 load --exec $HOME/myexpos/os_code/Stage26/pid.xsm
 load --exec $HOME/myexpos/os_code/Stage26/create.xsm
 load --exec $HOME/myexpos/os_code/Stage26/delete.xsm
+load --exec $HOME/myexpos/os_code/Stage26/write.xsm
 load --exec $HOME/myexpos/os_code/Stage26/cat.xsm
 load --exec $HOME/myexpos/os_code/Stage26/ls.xsm
 load --exec $HOME/myexpos/os_code/Stage26/rm.xsm
