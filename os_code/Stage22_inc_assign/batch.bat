@@ -9,8 +9,8 @@ load --exec $HOME/myexpos/os_code/Stage22_inc_assign/parent.xsm
 load --exec $HOME/myexpos/os_code/Stage22_inc_assign/odd.xsm
 load --exec $HOME/myexpos/os_code/Stage22_inc_assign/even.xsm
 load --exec $HOME/myexpos/os_code/Stage22_inc_assign/pid.xsm
-load --exec /home/rahul/myexpos/os_code/Stage22_inc_assign/conMerge.xsm
-load --exec /home/rahul/myexpos/os_code/Stage22_inc_assign/seqMerge.xsm
+load --exec $HOME/myexpos/os_code/Stage22_inc_assign/conMerge.xsm
+load --exec $HOME/myexpos/os_code/Stage22_inc_assign/seqMerge.xsm
 load --module 0 $HOME/myexpos/os_code/Stage22_inc_assign/resource_manager_module.xsm
 load --module 1 $HOME/myexpos/os_code/Stage22_inc_assign/process_man_mod.xsm
 load --module 2 $HOME/myexpos/os_code/Stage22_inc_assign/memory_man_mod.xsm

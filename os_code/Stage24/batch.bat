@@ -12,8 +12,8 @@ load --exec $HOME/myexpos/os_code/Stage24/create.xsm
 load --exec $HOME/myexpos/os_code/Stage24/delete.xsm
 load --exec $HOME/myexpos/os_code/Stage24/assg1.xsm
 load --exec $HOME/myexpos/os_code/Stage24/assg2.xsm
-load --data /home/rahul/myexpos/os_code/Stage24/sample.dat
-load --data /home/rahul/myexpos/os_code/Stage24/numbers.dat
+load --data $HOME/myexpos/os_code/Stage24/sample.dat
+load --data $HOME/myexpos/os_code/Stage24/numbers.dat
 load --module 0 $HOME/myexpos/os_code/Stage24/MOD0_resource_manager.xsm
 load --module 1 $HOME/myexpos/os_code/Stage24/MOD1_process_manager.xsm
 load --module 2 $HOME/myexpos/os_code/Stage24/MOD2_memory_manager.xsm

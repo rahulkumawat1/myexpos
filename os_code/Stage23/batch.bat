@@ -9,8 +9,8 @@ load --exec $HOME/myexpos/os_code/Stage23/parent.xsm
 load --exec $HOME/myexpos/os_code/Stage23/odd.xsm
 load --exec $HOME/myexpos/os_code/Stage23/even.xsm
 load --exec $HOME/myexpos/os_code/Stage23/pid.xsm
-load --exec /home/rahul/myexpos/os_code/Stage23/delete.xsm
-load --data /home/rahul/myexpos/os_code/Stage23/sample.dat
+load --exec $HOME/myexpos/os_code/Stage23/delete.xsm
+load --data $HOME/myexpos/os_code/Stage23/sample.dat
 load --module 0 $HOME/myexpos/os_code/Stage23/MOD0_resource_manager.xsm
 load --module 1 $HOME/myexpos/os_code/Stage23/MOD1_process_manager.xsm
 load --module 2 $HOME/myexpos/os_code/Stage23/MOD2_memory_manager.xsm
