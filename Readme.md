@@ -33,12 +33,12 @@ EXPOS is an experimental operating system that supports multiuser, virtual memor
 4. Run the following commands.
 
 ```bash
-cd myexpos/xfs-interface
-cp myexpos/os_code/Stage27/batch.bat batch.bat
+cd $HOME/myexpos/xfs-interface
+cp $HOME/myexpos/os_code/Stage27/batch.bat batch.bat
 ./xfs-interface
  run batch.bat
  exit
-cd myexpos/xsm
+cd $HOME/myexpos/xsm
 ./xsm --timer 200
 ```
 The final code for EXPOS is in ```myexpos/os_code/Stage27``` for running xsm machine use the following command:-
